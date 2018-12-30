@@ -17,7 +17,29 @@ Step-1 Install the git-scm tool (First time or once)
 
 Step-2 Open the command prompt and type "git" command to test whether your system have "git" installed or not. The "git" command will displays help text at command prompt if it is installed.
 
-Step-3 Now, register at "github.com" and create a new repository.
+Step-3  Now, create your own repository at local machine.
+
+  1. Assume that your c:\yash> is folder that you wish to define as "repository"
+  2. Issue "git init" command at c:\yash>git init
+  3. c:\yash>notepad sample.txt   <--- Create a text document and add some text in it + save it
+     Now, add sample.txt document into to git repo
+  4. c:\yash>git add sample.txt   Or use git add *.* to add all files
+  5. c:\yash>git commit -m "added sample document"
+  
+Repeat step-3 to 5 for any changes (updatation of file content or creation or deletion of dirs)
+
+  6. If you wish to synchronize local repository then create the user account at "github.com" and 
+     perform following steps:
+        1. Create "new" + icon repository.
+        2. Use "unique" name.
+        3. CLick on Create Repository
+        4. Now, attach local repository to remote,
+ 
+            c:\yash>git remote add origin https://github.com/adatapost/krina.git
+            c:\yash>git push -u origin master
+
+
+
 
 
 
