@@ -1,0 +1,118 @@
+Example: Demonstrate how to use "static" modifier to create a group for "related methods".
+
+
+package in.yash.fav;
+
+class MyDate {
+  static boolean isLeap(int year) {
+     return year%4==0;
+  }
+  static String getDayName( int dayNo ) {
+     if( dayNo == 1) return "Monday";
+     if( dayNo == 2) return "Tuesday";
+     return "Sunday";
+  }
+  static boolean isValid(int d, int m, int y) {
+      if( m==1 || m==3 || m==5 || m==7 || m==8 || m==10 || m==12) {
+          return d>=1 && d<=31;
+      } else if( m==4 || m==6 || m==9 || m==11 ) {
+          return d>=1 && d<=30;
+      } else if( m==2 ) {
+        if( MyDate.isLeap( y ) ) {
+           return d>=1 && d<=29;
+        } else {
+           return d>=1 && d<=28;
+        }
+      }
+    return false;
+  }
+}
+class MyNumber {
+   static boolean isOdd(int no) {
+      return no%2!=0;
+   }
+  static long fact(long no) {
+    long mFact = 1;
+    while( no>1 ) {
+       mFact = mFact * no;
+       no--;
+    }
+    return mFact;
+  }
+  static long yashFact(long no) {
+      if(no == 1) return 1;
+      return no * yashFact( no-1 );
+  }
+  static void printFactorials(long start, long stop) {
+     for(long no = start; no<=stop; no++) {
+        System.out.printf("\n%d - %d",no,MyNumber.fact(no) );
+     }
+  }
+}
+ 
+public class Test {
+   public static void main(String []args) {
+        // Tests
+        if(MyDate.isValid( 29, 2, 2001) ) {
+           System.out.println("Valid Date");
+        } else {
+           System.out.println("Invalid");
+        }
+  
+        System.out.println( MyDate.isLeap(1992) );
+        System.out.println( MyNumber.isOdd(1992) );
+        System.out.println( MyNumber.yashFact( 5 ) );
+        System.out.println( MyNumber.fact( 5 ) );
+
+        System.out.println( MyDate.getDayName( 1 ) );
+
+        MyNumber.printFactorials(5,15);
+   }
+}
+int d = 4, m = 5, y = 2010;
+
+
+I want to add/subtract 50 days to this date
+
+
+Example:  Called by value
+ 
+In Java, method parameters are always "Called by value". There is no specification for reference parameters in Java.
+
+ Called or passed by value : When we call a method, a copy of actual argument will be  passed to the formal argument and changes in formal argument cannot update the actual argument.
+
+ 
+package in.yash.fav;
+
+class Foo {              // n is called formal argument (parameter)
+  static void testParam( int n ) {
+     n = 100;
+  }
+} 
+public class Test {
+   public static void main(String []args) {
+       int a = 1, n = 2;
+       System.out.printf("\n%d   %d",a,n); // 1  2
+       Foo.testParam( a );  // a or n or 101 is known as actual argument
+       Foo.testParam( n );
+       Foo.testParam( 102 );
+       System.out.printf("\n%d   %d",a,n); //  1  2  100 100   
+    }
+}
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+

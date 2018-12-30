@@ -1,0 +1,248 @@
+The "composition" design
+=========================
+
+There are two ways to use (or re-use) the "TYPES" :
+   1. Composition and
+   2. Inheritance
+
+To use instances of "TYPES" to form another "TYPE" is an example of "composition" design. Approx 90% code uses 'composition' and 10% code uses 'Inheritance' design.
+
+Example:
+
+public class Address {
+  private String city;
+  private int pin;
+  //constructors
+  public Address() { 
+    city = "";  // Empty string
+  }
+  public Address(String city, int pin) {
+    this.city = city;
+    this.pin = pin;
+  }
+  //Getters-Setters
+  public void setCity(String city) { this.city = city; }
+  public String getCity() { return city; }
+  public void setPin(int pin) { this.pin = pin; }
+  public int getPin() { return pin; }
+}//EndClass
+
+public class Student {
+  private int roll;
+  private String name;
+  private Address localAddress;
+  private Address postalAddress;
+
+  //Constructors
+  public Student() {
+     name = "";
+     localAddress = new Address();
+     postalAddress = new Address(); 
+  }
+  public Student(int roll, 
+              String name, 
+             Address localAddress, 
+             Address postalAddress) {
+     this.roll = roll;
+     this.name = name;
+     this.postalAddress = postalAddress;
+     this.localAddress = localAddress;
+  }
+  //Getters-Setters
+  public void setRoll(int roll) { this.roll = roll; }
+  public int getRoll() { return roll; }
+  public void setName(String name) { this.name = name; }
+  public String getName() { return name; }
+  public void setLocalAddress(Address localAddress) { 
+       this.localAddress = localAddress;
+  }
+  public Address getLocalAddress() { return localAddress; }
+  public void setPostalAddress(Address postalAddress) { 
+       this.postalAddress = postalAddress;
+  }
+  public Address getPostalAddress() { return postalAddress; }
+}
+
+And now, we've different-different approaches to use the "Student" class:
+
+public class App {
+  static void print(Student p) { // print student data
+    System.out.println(p.getRoll() + "  " + p.getName());
+    System.out.println(p.getLocalAddress().getCity() + " " 
+                     + p.getLocalAddress().getPin());
+    System.out.println(p.getPostalAddress().getCity() + " "
+                     + p.getPostalAddress().getPin());
+  }  
+
+ public static void main(String []args) {
+     test1();
+     test2();
+     test3();
+     test4();
+     test5();
+  }
+
+  //Test- 5
+  static void test5() {
+     Student s = new Student();
+     s.setRoll(10);
+     s.setName("Meet");
+     s.setLocalAddress( new Address("Patan", 23232) );
+     s.setPostalAddress( new Address("Surat", 33232) );
+     print(s);
+  }
+  //Test- 4
+  static void test4() {
+     Address a = new Address("Meh",2323);
+     Address b = new Address("Pat",2323);
+     Student s = new Student();
+     Student t = new Student(4,"B",b,a);
+     s.setRoll(10);
+     s.setName("A");
+     s.setLocalAddress(a);
+     s.setPostalAddress(b);
+
+     print(s);
+     print(t);
+  }
+
+  //Test- 3
+  static void test3() {
+     Address a = new Address("Meh",2323);
+     Student s = new Student(4,"Meena", a,a);
+     print(s);
+  }
+ 
+ //Test-2
+  static void test2() {
+     Student s = new Student(4,"Meena", new Address("Pat",3394), 
+                                            new Address("Raj",5656));
+     print(s);
+  }
+  //Test-1  
+  static void test1() {
+     Student s = new Student();
+     s.setRoll(2);
+     s.setName("Reena");
+     s.getLocalAddress().setCity("Meh");
+     s.getLocalAddress().setPin(30000);
+     s.getPostalAddress().setCity("Pat");
+     s.getPostalAddress().setPin(342223);
+
+     print(s);
+  }
+}//EndClass
+ 
+Example:  Practice work
+
+public class Point {
+  private int x,y;
+  //TODO
+}
+public class Rectangle {
+  private Point start, end;
+  //TODO
+}
+public class Circle {
+  private Point center;
+  private double radius;
+  //TODO
+}
+public class Polygon {
+  private Point []points;
+  //TODO
+}
+
+code in main:
+ //Test-1
+  Rectangle r = new Rectangle();
+  r.getStart().setX(10);
+  r.getStart().setY(20);
+  r.getEnd().setX(200);
+  r.getEnd().setY(250);
+  System.out.println( x.getStart().getX() + " " + x.getStart().getY());
+  System.out.println( x.getEnd().getX() + " " + x.getEnd().getY());
+
+ //Test-2
+ Rectangle r = new Rectangle();
+ r.setStart( new Point(10,20) );
+ r.setEnd( new Point(200,250) );
+
+
+ //Test-3
+ Rectangle r = new Rectangle( new Point(10,20), new Point(200,250) );
+
+Linked List
+===========
+
+public class Student {
+  private int roll;
+  private String name;
+
+  private Student link;
+
+  //constructors
+  public Student()  { }
+  public Student(int roll, String name) {
+    this.roll = roll;
+    this.name = name;
+  }
+  public int getRoll() { return roll; }
+  public String getName() { return name; }
+  public Student getLink() { return link; }
+  public void setRoll(int roll) { this.roll = roll; }
+  public void setName(String name) { this.name = name; }
+  public void setLink(Student link) { this.link = link; }
+}//EndClass
+
+code in main() method:
+
+  Student s1 = new Student(10,"Reena");
+  Student s2 = new Student(20,"Meena");
+  Student s3 = new Student(30,"Seena");
+
+  //Adjust the links
+  s1.setLink(s2);
+  s2.setLink(s3);
+  //Retrieve the data of three objects 
+  System.out.println( s1.getRoll()  + " " + s1.getLink().getRoll() 
+          + " " + s1.getLink().getLink().getRoll());
+
+  //Traverse all node (objects) of the linked list
+  Student t = s1;   //memory ref of first object in the chain
+  while( t!=null ) {
+    System.out.println(t.getRoll() + " " + t.getName());
+    t = t.getLink();
+   }
+
+OR
+
+ Student s1 = new Student(10,"Meena");
+ s1.setLink( new Student(20,"Seema") );
+ s1.getLink().setLink( new Student(30,"Reena") );
+
+ 
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

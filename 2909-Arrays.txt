@@ -1,0 +1,230 @@
+Arrays
+=======
+
+Java Arrays are instances of java.lang.Object class. That means "arrays" are reference type and can hold data/value of "any" type (class, interface, arrays).
+
+[Note: Arrays always uses "heap" ]
+
+Declaration syntax:
+
+   datatype []varName;
+   datatype varName[];
+
+   First syntax, all variables are consider as "array" of given dimension.
+
+     int []a,b,c;       // a,b, and c are array reference variables
+     int a[],b = 2,c = 5; // a is array reference variable whereas variable "b" and
+			  //  "c" are int variables.
+
+Create or instantiate the array
+--------------------------------
+There are two syntax to instnatiate the arrays:
+  
+  1. "new" keyword e.g   int []nos = new int[4];
+  2. Array initializer syntax.  int []nos = {11,22,33,44,55,66,66 };
+
+The length field of array object
+---------------------------------
+Each instance of an array has "length" integer field which returns count of variables.
+
+Example:  
+
+public class App {
+  public static void main(String []args) {
+     int []nos = null;  // nos is a referennce variable (created in stack frame)
+                        // having null value
+
+     //instantiate the array
+     nos = new int[5];   // an object is created that hold memory reference of 
+                         // "five" zero initialized integers.
+     
+     //print length and also all five variables
+     System.out.println( nos.length );
+     for(int i=0;i<nos.length;i++) {
+       System.out.println( nos[i] );
+     }
+  }//endmain
+}//endclass
+     
+Example: code in main method
+   String []names = new String[5];
+   names[0] = "Amar";
+   names[4] = "Payal";
+   names[2] = "B";
+
+   for(int i=0;i<names.length;i++)  {
+     if(names[i]!=null) {  //Check the null
+        System.out.println(names[i] + "  " 
+                  + names[i].length() + " " 
+                  + names[i].toUpperCase());
+     }
+   }
+
+The "for in" loop - Collection traversal loop
+==============================================
+Syntax:
+  for(datatype localVarName : array_or_collection_object ) {
+     .....
+  }
+
+Example: Code in main method
+  
+     String []days = { "Mon", "Tue", "Wed" };  // Array initializer syntax
+     for( String day : days ) {
+        System.out.println( day );
+      }
+
+ [NOTE: The "for in" loop used with arrays and collections objects Or any class 
+        which implements java.lang.Iterator<T> interface.]
+
+  The "for in" loop reads one by one elements from specified "arrays or collections". 
+
+Nested Or Jagged arrays -- Arrays are also elements of an array
+---------------------------------------------------------------
+In Java Language, there is no such two or multidimensional array found in C/C++ languages.
+
+
+ In Java, we can define nested array:
+ 
+      datatype [][]varName;   or datatype varName[][];
+      datatype [][][]varName; or datatype varName[][][];
+
+Instantiate the jagged/nested arrays:
+      There are two syntax to instantiate:
+           1. Array initializer and
+           2. Using "new" keyword.    
+                 Further we've two syntax:
+                     1. datatype varName[][] = new datatype[size1][size2];
+                     2. datatype varName[][] = new datatype[size][]; 
+                                 varName[index] = new datatype[size2];
+                                 ...
+Example: code in main method
+   int [][]nos = new int[3][4];  // "Three" arrays where each array represent four ints
+   nos[0][0] = 3;
+   nos[2][3] = 5;
+   //traverse 
+   for(int i=0;i<nos.length;i++) {
+     for(int j=0;j<nos[i].length;j++) {
+       System.out.print(" " + nos[i][j]);
+     }
+     System.out.println();  // Newline
+   } 
+   //Traverse using for in loop
+   for(int []no : nos) {
+     for(int n: no) {
+        System.out.print(" " + n);
+      }
+     System.out.println();
+    }
+
+Example: code in main
+
+    int []a = {11,22,33}; 
+    int []b = new int[4];
+    int []c = {10,20};
+
+    int [][]nos = { a, b, c, new int[] { 44,55,66,77} };
+     
+    for(int []no : nos) 
+      for(int n: no) 
+         System.out.print(" " + n);
+     System.out.println();
+  
+Example: code in main ( Represent some student names of three classrooms)
+      
+     String [][]classes = new String[3][];
+     classes[0] = new String[4];
+     classes[1] = new String[] { "Reena", "Meena" };
+     classes[2] = new String[] { "Komal", null, "Teena" };
+      
+     //Print memory references
+     for(String []classArray : classes) {
+         System.out.println(classArray);
+      }
+     //Print the data
+     for(String []classArray : classes) {
+         for(String name: classArray) {
+           System.out.println(name);
+         }
+         System.out.println("\n-----");
+      }
+
+When to use "arrays" and when to not?
+--------------------------------------
+
+  Arrays are fixed length so donot use array when the size or count of elements are not   known at the time of compilation. But always uses array when count/size is known at
+  compile time.
+
+  Note: In Java, there is an alternative to array called "Collection Framework or API"         which will be used to represent variable amount of data/value.
+
+Example: Write a method which returns a "String" -- amount in words.
+
+ Prototype:     public static String amountInWords( int amount ) ;
+
+amount     one = {"", "One", "Two", ......, "Ninteen" };
+           ten = { "", "Ten", "Twenty",....."Ninty"}
+
+1293    / 1000  = 1    293
+45637   / 1000  = 45   637
+
+123
+856
+934     / 100 = 9
+        % 100  = 34
+
+46      amount % 10  = 6
+        amount / 10  = 4      ten[4] + " " + one[6];
+
+17
+20
+23
+
+
+Array sort using "java.util.Arrays.sort()" method
+--------------------------------------------------
+ code in main:
+
+    int []nos = { 6, 77,3 ,98 , 4 };
+    java.util.Arrays.sort( nos );
+    for(int no : nos)
+       System.out.println(no);
+
+System.arrayCopy( src, srcIndex, srcLength, dest, destIndex, destLength) - copy an array
+-----------------------------------------------------------
+   int a[] = { 2 ,3 ,4 ,5 ,6 ,7 ,8 ,9 };
+   int b[] = new int[9];
+   System.arrayCopy( a, 0, 3, b, 5, 3);
+
+
+Array of custom classes
+-----------------------
+
+Assume that we've a "Point" class. Now, we want to repreent five 'Point' objects as an array:
+
+  code in main:
+
+      Point points[] = new Point[5];  // Will create five point ref variables each
+                                      // is null initialize
+      for(Point point : points)
+         System.out.println( point );  // null 
+ 
+       //Now, instante the Point class
+
+       points[0] = new Point(20,30);
+       points[1] = new Point(2,3); 
+       points[2] = new Point(3,23);
+       points[3] = new Point(40,50);
+       points[4] = new Point(45,66); 
+   
+       for(Point point : point) {
+         System.out.println( point.getX() +  "   " + point.getY() );
+        }      
+       
+
+
+
+
+
+
+
+ 

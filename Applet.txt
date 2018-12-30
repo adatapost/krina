@@ -1,0 +1,57 @@
+The "Applet" 
+-------------------------------------------
+ 
+The "Applet" is a Java class which provide Graphical User Interface (GUI) to embed the Java code into web-browsers. Each web-browser has a small JVM which manage the "Applet" lifecycle - i.e initialize, start, stop, paint and destroy (remove) the Applet object.
+
+
+Package java.applet represent "Applet" infrastructre classes and for GUI, we have to use Abstract Windowing Toolkit (AWT) classes from java.awt package and its sub-packages.
+
+How to create an applet?
+-----------------------
+1. Create a sub-class of java.applet.Applet (or javax.swing.JApplet) and
+2. A sub class must be "public".
+
+>notepad Sample.java
+
+public class Sample extends java.applet.Applet {
+}
+ 
+How to run/launch the applet?
+-------------------------------
+1. Create a document (text, .java or html) and add following HTML markup/tag in it:
+
+   <applet code="YourAppletSubClass"
+           width="400"
+           height="400"></applet>
+
+2. Use web-browser or "appletviewer" tool to launch/run the applet
+
+
+Applet lifecycle and callback methods of "java.applet.Applet" class
+====================================================================
+public class Sample extends java.applet.Applet {
+ public void destroy() {
+    System.out.println("destroy method!");
+ }
+ public void init() {
+    System.out.println("init method!");
+ }
+ public void stop() {
+    System.out.println("stop method!");
+ }
+ public void start() {
+    System.out.println("start method!");
+ }
+ public void paint(java.awt.Graphics g) {
+    System.out.println("paint method!");
+
+    setBackground(java.awt.Color.RED);
+    g.drawLine(0,0,500,400);
+    g.setColor(java.awt.Color.white);
+    g.drawString( "Date: " + new java.util.Date(), 100,70);
+   
+ }
+}
+/*
+<applet code="Sample"
+   width="500" height="400"></applet> */

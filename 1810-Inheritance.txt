@@ -1,0 +1,264 @@
+Inheritance
+===========
+
+ "It is an OOP technique to reuse the 'form' of existing class".
+
+ In inheritance relationship, a newly created class is "sub-class or derived class or child class" whereas an existing class (that is used to created sub-classes) is known as "super or base or parent class".
+
+ A "class" must have one and only one immediate super class. The Java language uses "extends"  clause to inherit the class.
+  
+      class Hello { }  or class Hello extends java.lang.Object {  }
+      
+      If "extands" clause is not specified then the Java compiler automatically inherit java.lang.
+      Object class.
+
+ A "class" can have zero or more indirect super classes i.e. Inheritance it transitive.
+
+     class A {  }   		// java.lang.Object is direct super class
+     class B extends A { } 	//  A is direct super class and "java.lang.Object" is
+                                                                   indirect super class.
+     class C extends B { }      // "B" is direct super class whereas "java.lang.Object" and "A"
+								are indirect super classes. 
+
+Object and sub-objects
+-----------------------
+
+ When we instantiate the "sub-class" object, all super classes are instantiate first (in such order in which they are used to create sub class) before instantiation of "sub-class".
+
+Example:
+
+ class A {
+     public int n;
+ }
+ class B extends A {
+     public int n;
+ }
+ class App {  
+    public static void main(String []args) {
+        B b = new B(); // Will instantiate three classes in follo order ;
+			// 1. java.lang.Object
+                        // 2. A
+                        // 3. B
+       // In above expression "new B()" - three objects will be created and out of three object
+       // reference, reference of object "B" will be returned because the receiver type is "B".
+
+ 
+        b.n = 10;   // This is the sub-object of "family" and want to update the "n" field
+
+       //Now, select the object ref of class "A" from the "family".
+
+        A a = b;
+        a.n = 90;
+
+        //Now, obtain the object ref. of class "Object" from the family".
+        Object c = b;
+  
+        System.out.println(a.n + " " + b.n);
+    }
+}
+In above, example we can select "object" reference of "super" class from sub-class referece and this mechnism is called "Implicit Object Casting". 
+
+   REMEMBER-> SELECT Object reference of super class from sub-class object reference is called
+		automatic or implict object casting.
+
+   For instance,
+           Object c = new B(); // will receive object ref of "Object" class
+           A a = new B();      // will receive obj. ref of "A" class
+           B b = new B();      // will receive obj. ref. of "B" class
+  
+  BUT, following is invalid or illegal:
+
+          Object c = new B();
+          A a = c;    OR  B b = c;
+
+        In above expression, we must tell the "parent" object reference to select appropriate
+        child/sub class object reference via following syntax:
+ 
+                      (SubClassName) parentObject
+
+   Now, following is correct or valid
+       
+         Object c = new B();
+         A a = (A) c;
+         B b = (B) c; 
+        
+   REMEMBER-> Obtain sub-class object reference from "super" class object using force or explict      cast is called "Explict Object Casting".
+
+   Here is another example to cast force fully super object:
+       Object c = new B();
+       ((A)c).n = 900;
+       ((B)c).n = 100;
+       System.out.println(  ((A)c).n +  "    " +  ((B)c).n );
+       A x = (A)c;
+       B y = (B) x;  // or B y = (B)c;
+      System.out.println(x.n +  " "  + y.n);
+
+  What will be the output?
+        Object c = new B();
+        String s = (String)c;
+ 
+Constructors of super ad subclasses
+====================================
+Super class constructors are executed/invoked before the execution of "sub-class" constructor and by default super's parameterless constructors will be selected.
+
+Consider the following example:
+
+class A {
+  public A() { System.out.println("A::NoParam");  }
+  public A(int n) { System.out.println("A::Int"); }
+ }
+ class B extends A {
+   public B() { System.out.println("B::NoParam"); }
+  public B(int n) { System.out.println("B::Int"); }
+  public B(String n) { System.out.println("B::String"); }
+ }
+ class App {  
+    public static void main(String []args) {
+        B x = new B();
+        B y = new B(11);
+        B z = new B("Hello");
+   }
+}
+Output:
+ A::NoParam
+ B::NoParam  <----  B x= new B();
+
+ A::NoParam
+ B::Int     <--- B y = new B(11);
+
+ A::NoParam
+ B::String  <---- B z = new B("Hello");
+
+Question: What will happen if there is a "parameterized" constructor in class A.
+ e.g class A {
+        public A(int n) { ... } 
+     }
+
+ Program wont be compiled because there is no "parameterless" constructor in super.
+ 
+ But we can select appropriate super class constructor from within the "sub-class" constructor via "super" keyword/statement.
+
+ The super() must appear at very first statement of the sub-clss constructor.
+
+So, the code of class B:
+
+ class B extends A {
+    public B() {
+       super(0); <-- Invoke superls int parameter
+       System.out.println("B::Int");
+    }
+    public B(int n) {
+        super(n);
+        ...
+    }
+    public B(String b) {
+        super(10);
+         ....
+    }
+ }
+ 
+ The super keyword also used to seperate the members super class from sub-class when they share the common name.
+
+ e.g
+public class Question {
+  private String text;
+  private String op1, op2, op3;
+  public void display() {
+    //code to display text, op1, op2, op3
+  }
+}
+public class SingleChoice extends Question {
+  public void display() {
+      super.display(); // Invoke super method
+      Ssytem.out.println("This is single choice question!!!");
+   }
+}
+   
+Method overriden  
+=================
+
+This is the third way to achieve the "polymorphism" using the "class inheritance" relationship.
+[Three ways to achive polymorphims are : 1. Overload the methods, 2. Interface implementation and 3. Method override (class Inheritance)]
+
+What do you meant by the term "override" or "method override"?
+
+   To "override" means "to replace or supersede".
+
+ In some case, super class's implementation is found meaningless in sub-class (super's unwanted methods) so we can replace the unwanted implementations by using the "overriding" technique which will remove the super's impelemtation from the sub-class.
+
+For instance, the java.lang.Object is the "ultimate or root super" class but it has following unwanted methods -  int hashCode(), boolean equals(Object), and String toString().
+
+Have a look at this code snippet:
+
+class Product {
+   private int id;
+   private String name;
+   public Product(int id, String name) { 
+     this.id = id;
+     this.name = name;
+   }
+}
+
+class App {
+   public static void main(String []args) { 
+      Product p1 = new Product(10,"Pencil");
+      Product p2 = new Product(10,"Pencil");
+  
+      if(p1 == p2) {    // Comparing memory ref of object 
+         System.out.println("Equal!");
+      } else {
+         System.out.println("Unequal!");
+      }
+      // Invoke super's equals() to compare the content of two objects
+      if(p1.equals(p2)) {
+         System.out.println("Equals!");
+      } else {
+         System.out.println("Unequals");
+      }
+  }//EndMain
+}//EndClass
+
+Output:
+Unequal!
+Unequals
+
+ ..Because in Product class, we don't have the "equals" definition and it is from the java.lang.Object and this is absurd use of "equals" method.
+
+Now, in order to compare the content of objects, we must have to overrride "equals" methods. We may also override "hashCode" which returns integer hash code from using the content of "object".
+ [Hash means to obtain "int" from the given data using custom/user-defined algorithm].
+
+class Product {
+  ....
+  ....
+  @Override     // @Override is an annotation or instruction to Java Compiler to math the
+                // signature of super and sub class method  
+  public boolean equals(Object p) {
+     //Cast the Product 
+     Product other = (Product) p;
+     if( id != other.id ) return false;
+     if( !name.equals(other.name) ) return false;
+     return true;
+     // Or in case if you override a hashCode method   
+     //   return hashCode() == p.hashCode();
+  }
+ @Override public int hashCode() {
+   int hash = id;
+   hash += name == null ? 0 : name.hashCode();
+   return hash;
+ }
+ @Override public String toString() { return id + "  " + name; } // Product to String format
+}//End class 
+
+and code in main method:
+  
+  Product p1 = new Product(10,"Pen");
+  Product p2 = new Product(10,"Pen");
+  System.out.println( p1.equals(p2) );
+  System.out.println( p1.hashCode()  + "  " + p2.hashCode() );
+  System.out.println( p1 ); // will invoke p1.toString()
+  System.out.println( p2 ); // will invoke p2.toString()
+
+
+ 
+
+    

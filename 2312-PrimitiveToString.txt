@@ -1,0 +1,84 @@
+Primitive to "String" format (Convert primitive to string)
+======================
+Use "String.valueOf(value)" method:
+
+  int no = 10;
+  double amount = 10000.20;
+
+  String str = String.valueOf( no );
+  System.out.println( str );
+  str = String.valueOf( amount );
+  System.out.println( str );
+
+String to "Primitive" -- parse the string
+====================================
+
+  String str = "1000";
+  int no = Integer.parseInt( str ); 
+  double amount = Double.parseDouble( str );
+
+
+"Primitive" to "Wrapper" -- Autoboxing 
+-----------------------------------------
+Java compiler automatically create an object of "Wrapper" class and set the primitive data in it.
+
+    int n = 10; // This is primitive value
+
+    Integer m = n; // This statement is interpret as,  Integer m = new Integer(n) by the
+		   // Java compiler and this syntax is known as "autoboxing".
+
+    Double d = 10.10d;  
+    Float f = 10.10f;   
+    Boolean status = true; etc are example of "autoboxing".
+
+"Wrapper" to "Primitive" - Autounboxing
+------------------------------------------
+Java compiler automatically select appropriate conversion method from the wrapper object.
+
+  //autoboxing 
+  Integer n = 10;  // 10 is primitive and now the value 10 is referenced by "n" ref variable
+ 
+  //Autounboxing
+  int m = n;       // Java compiler interpret int m = n as,  int m = n.intValue()
+
+
+"Wrapper" to "primitive" by invoking xxxxValue() methods
+-----------------------------------------------------------
+ Double amount = 10000.20d;
+ int n = amount.intValue();
+ float f = amount.floatValue();
+ long p = amount.longValue(); and similarly you can call "byteValue()", "shortValue()", "doubleValue()" and so on.
+
+
+Format "Wrappers" by calling toString() method 
+------------------
+String str = new Integer(50).toString();  // primitive to wrapper to string
+Or
+Integer n = 50;
+String str = n.toString();
+
+Format primitive and wrapper by concating data with "" string literal
+---------------------------
+int n = 10;
+String str = "" + n;  
+  Or
+String str = n + "";
+
+
+String to wrapper by "Wrappers' constructors"
+---------------------------------------------
+String str = "1000";
+Integer no = new Integer(str);
+
+Represent any numeric value to java.lang.Number class object --- This "Nuber" class is the super class of Byte, Integer, Short, Long, Float, and Double.
+-------------------------------------
+Number n = 10;  
+n = 20.20f;
+n = 20.20d;
+n = 1000L;
+
+
+
+  
+
+

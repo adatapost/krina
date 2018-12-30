@@ -1,0 +1,365 @@
+Interface Type
+===============
+
+-> It is a reference Type
+-> It is used for the folloing purposes:
+   1. To represent method reference. (In C/C++ - this feature is called 'function
+       pointer or functor).
+   2. To design the class library
+   3. To define the "standards" or "rules". for instance, JDBC, XML, HTTP, and many 
+      more...
+   4. To design the "callback" or "Event Handling" system. (Different languages
+      uses different terms for callback. In JavaScript it is known as "Closure")
+   5. To create anonymous class and objects
+   6. To separate the definition of methods and declaration of methods.   Declarations
+       will be placed into "interfaces" and method definitions will be placed into 
+       "classes".
+-> An interface "Type" can extends one or more "interfaces".
+-> An interface "Type" defines the behavior.
+-> A relationship between class and interface is called "Implementation relationship or    'Like' relationship".
+
+   A class can implements one or more interfaces that means a "class" has one or 
+   more behaviours.
+-> Interface reference variable will create a "pointer table" also known as "Virtual   
+   Method Table".
+   for instance,
+   
+   interface Shape {
+      void draw();
+      void erase();
+   }
+  
+   Shape p;  will create a Virual Method Table,
+    |------------------------|
+    | Method |  Memory Ref   |
+    |--------|---------------|
+    | draw   | null          |
+    | erase  | null          |
+    |------------------------|
+-> All members inside the "interface" are public and remain public forever.
+
+
+What is inheritance?
+
+  It is an OOP technique to reuse the "form" of existing class to create the new   classes.
+  There will be a "is" relationship between two classes and this relationship is
+  also known as "Inheritance relationship".
+
+   e.g  English "is" Language
+        Gujarati "is" Language
+        Hindi "is" Language 
+
+      English, Gujarati and Hindi are sub-classes of the "super-class" Language.
+  
+  Inheritance between interfaces is nothing but addition of methods from existing
+  interfaces. Consider the following example:
+
+  interface FirstStd {
+     void drawing();
+  }
+  interface SecondStd {
+     void gujarati();
+  }
+  interface ThirdStd extends FirstStd, SecondStd {
+     void maths();  // This interfae has three methods  - drawing, gujarati and maths
+  }
+  
+  [NOTE: Inheritance between interfaces don't re-use the "form" instead they add
+         methods from one or more interfaces into the "sub-interface".]
+  
+  So, inheritance between two classes is "re-use" of the "form". and
+      inheritance between two or more interfaces is to "collect" one or more methods
+      into the "sub-interface".
+
+Example: How method references are assigned to interface's virtual method table? And how we can achieve the real-world polymorphism?
+
+interface Shape {
+  void draw();
+  void erase();
+}
+class Circle implements Shape {
+   public void draw() { System.out.println("Circle drawn!"); }
+   public void erase() { System.out.println("Circle erased!"); }
+}
+class Rect implements Shape {
+   public void draw() { System.out.println("Rect drawn!"); }
+   public void erase() { System.out.println("Rect erased!"); }
+}
+class Line implements Shape {
+   public void draw() { System.out.println("Line drawn!"); }
+   public void erase() { System.out.println("Line erased!"); }
+}
+/* Here, we've single declaration and many (multiple) definitions of "draw" and "erase"
+   and this system is known as "Polymorphism". */
+
+class App {
+  public static void main(String []args) {
+     // Declare the interface ref. var
+     Shape s = null;
+    /*
+    |---------------------|
+    | Method |  Reference |
+    | draw   | null       |
+    | erase  | null       |
+    |---------------------|
+    */
+    //Create objects
+    Circle c = new Circle();
+    Rect r = new Rect();
+    Line l = new Line();
+
+    //Wireup the method references or assign method ref. to interface var
+    s = c;
+    /*
+    |---------------------|
+    | Method |  Reference |
+    | draw   | Circle#draw |
+    | erase  | Circle#erase|
+    |---------------------|
+    */
+    s.draw();   // Invoke method from its reference
+    s.erase();  
+    s = r;
+    /*
+    |---------------------|
+    | Method |  Reference |
+    | draw   | Rect#draw |
+    | erase  | Rect#erase|
+    |---------------------|
+    */
+    s.draw();
+    s.erase();
+
+    //Pass the object
+     performDrawing( c );
+     performDrawing( new Circle() ); 
+     performDrawing( r );
+     performDrawing( l );
+
+     Shape []shapes = { c, r, l, new Line(), new Rect(), new Circle(), new Line()  };
+     for(Shape shape : shapes) 
+          shape.draw(); // performDrawing( shape );
+ 
+  }//End Main
+
+  static void performDrawing( Shape p ) {
+    p.draw();
+  }
+}//End Class
+
+interface Shape {
+  void draw();
+  void erase();
+}
+class Circle implements Shape {
+   public void draw() { System.out.println("Circle drawn!"); }
+   public void erase() { System.out.println("Circle erased!"); }
+}
+class Rect implements Shape {
+   public void draw() { System.out.println("Rect drawn!"); }
+   public void erase() { System.out.println("Rect erased!"); }
+}
+class Line implements Shape {
+   public void draw() { System.out.println("Line drawn!"); }
+   public void erase() { System.out.println("Line erased!"); }
+}
+/* Here, we've single declaration and many (multiple) definitions of "draw" and "erase"
+   and this system is known as "Polymorphism". */
+
+class App {
+  public static void main(String []args) {
+     // Declare the interface ref. var
+     Shape s = null;
+    /*
+    |---------------------|
+    | Method |  Reference |
+    | draw   | null       |
+    | erase  | null       |
+    |---------------------|
+    */
+    //Create objects
+    Circle c = new Circle();
+    Rect r = new Rect();
+    Line l = new Line();
+
+    //Wireup the method references or assign method ref. to interface var
+    s = c;
+    /*
+    |---------------------|
+    | Method |  Reference |
+    | draw   | Circle#draw |
+    | erase  | Circle#erase|
+    |---------------------|
+    */
+    s.draw();   // Invoke method from its reference
+    s.erase();  
+    s = r;
+    /*
+    |---------------------|
+    | Method |  Reference |
+    | draw   | Rect#draw |
+    | erase  | Rect#erase|
+    |---------------------|
+    */
+    s.draw();
+    s.erase();
+
+    //Pass the shape object
+     performDrawing( c );
+     performDrawing( new Circle() ); 
+     performDrawing( r );
+     performDrawing( l );
+
+     //Collection of shape objects - array of  Shape reference variables
+     Shape []shapes = { c, r, l, new Line(), new Rect(), new Circle(), new Line()  };
+     for(Shape shape : shapes) 
+          shape.draw(); // performDrawing( shape );
+ 
+  }//End Main
+
+  static void performDrawing( Shape p ) {
+    p.draw();
+  }
+}//End Class
+
+Syntax of interface type
+------------------------
+
+  access-modifier interface InterfaceTypeName [extends Interface1, Interface2, ....] {
+     //1. Method declarations
+     //2. Constants variables/fields
+     //3. Default methods
+  }
+
+ Example:
+     public interface Shape {
+         void draw();
+         void erase();
+         double PI = 3.14;  // constant field/variable
+         return about();
+    }//EndInterface
+
+    The "default" keyword allow us to add method definitions into the  "interface" and
+    this definition will be added into "implementator classes".
+
+ 
+The Anonymous inner class and an interface
+------------------------------------------
+
+  We can define "unnamed" or "anonymous" class by implementing  the "interface" using
+  following syntax:
+
+       InterfaceTypeName   refVarName  = new InterfaceTypeName() {
+          //Here goes implementations....
+       };
+
+   [
+     Note: We can use named classes that implement the interfaces using following           syntax:
+          access-modifier class ClassName [extends SuperClass, [implements Interface1,
+								 interface2, ... ]] {
+                //Class body
+          }
+    ]
+
+Example:
+
+interface Shape {
+  void draw();
+  void erase();
+}
+
+class App {
+  public static void main(String []args) {
+     // Create anonymous class and then instantiate it using an interface
+      Shape s =  new  Shape() {
+         //Implementations
+         public void draw() { System.out.println("Circle Drawn!"); }
+         public void erase() { System.out.println("Circle Erased!"); }
+      };
+
+      Shape r = new Shape() {
+         public void draw() { System.out.println("Rect Drawn!"); }
+         public void erase() { System.out.println("Rect Erased!"); }
+      };
+    
+      //Invoke methods
+      s.draw();
+      r.draw();
+      s.erase();
+      r.erase(); 
+   }//EndMain
+}//EndClass
+[Three actions in one statement --  Create anonymous class + Implement an interface +  Instantiate the anonymous class]
+
+Lambda syntax / Lambda expression - another syntax to implement an interface
+------------------------------------------------------------------------------
+In this syntax, an interface "must" have only one abstract/declared method. 
+
+ Syntax:
+
+        InterfaceTypeName refName = (parameters....) -> single-statement-body;
+        InterfaceTypeName refName = (parameters....) -> {
+           //multiple-statements-body
+        };
+Example:
+
+interface Calc {
+  double action(double no1, double no2);
+}
+
+class App {
+  public static void main(String []args) {
+    //Anonymous classes and objects
+    Calc add = new Calc() {
+       public double action(double a, double b) {
+           return a+b;
+       }
+     };
+
+     //Annymous classes using lambda syntax
+     Calc sub = (x,y)->x-y;
+     Calc mul = (p,q)->p*q;
+     Calc series = (start,end) -> {
+        double sum = 0;
+        for(double i = start; i<=end; i++) {
+           System.out.println(i); 
+           sum+=i;
+        }
+        return sum;
+      };
+
+      //Invoke the methods
+      System.out.println( add.action(20,30) ); 
+      System.out.println( sub.action(20,30) ); 
+      System.out.println( mul.action(20,30) ); 
+      System.out.println( series.action(1,10) ); 
+   }//End Main
+}//EndClass 
+
+
+
+     
+
+
+     
+
+
+
+
+
+
+  
+
+  
+
+
+
+ 
+
+
+
+
+
+
+
+

@@ -1,0 +1,76 @@
+Java Date Time API
+===================
+
+1. The java.util.Date class --- This is lagecy class (old class) and number of methods of this class are depricated(out of service) due its faulty design.
+
+  However we will learn those methods which are used commonly.
+
+Example: The Date & Time in Java uses 1st Jan 1970 as start date or it is called Epoch time.
+         In this example we will pass milliseconds (1000 millis  = 1 second) to form the date
+         object.
+      
+  java.util.Date dt = new java.util.Date(0L);  // passing 0L millis
+  System.out.println(dt);  
+
+Example: Obtain current date & time in millis
+ 
+    long ms = System.currentTimeMillis();
+    System.out.println( ms );
+    //Date & Time object
+    java.util.Date dt = new java.util.Date( ms );
+
+Example: Subtract 5 days & 10 hours from current date time.
+
+ long ms = System.currentTimeMillis();
+ long ms1 = (5 * 24 * 3600 * 1000L) + (10 * 3600 * 1000L);
+ Date dt = new Date(ms - ms1);
+
+Example: Obtain millisecond from the Date object using Date's getTime() method
+
+   Date dt = new Date(); 
+   System.out.println( dt );
+   long ms = dt.getTime();
+   System.out.println( ms );
+
+2. java.text.SimpleDateFormat class to format and parse the java.util.Date object
+   
+   To format the Date object means convert "Date" to "String" using following format characters.
+
+      java.util.Date now = new java.util.Date();
+      java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy hh:mm:ss a");
+      String str = sdf.format( now );
+      System.out.println( str );
+
+      (See the documentation of java.text.SimpleeDateFormat for format characters...)
+
+      Use "E" - day name abbr.
+          "MMM" - Month name abbr.
+ 
+      String str = new SimpleDateFormat("E, dd-MMM-yy").format( now );
+      System.out.println(str);
+
+      Time only:
+        String str = new SimpleDateFormat("HH:mm:ss").format( new Date() ); 
+        System.out.println( str );   // HH - 24 hours,  hh - 12 hours clock
+
+   To parse the string date "10-01-2002" ( String date to java.util.Date object):
+
+       // String date
+       String str = "31-01-2002";
+       // Pattern of string date 
+       String pattern = "dd-MM-yyyy";
+       //Create SimpleDateFormat instance
+       SimpleDateFormat sdf = new SimpleDateFormat( pattern );
+
+       //call the parse() method of SimpleDateFormat -- This method report an exception so 
+       //wrap your code in try...catch..block.
+
+       try {
+          Date dt = sdf.parse( str );
+          System.out.println( "Date : " + dt);
+       }catch(Exception ex) {
+          System.out.println(ex);
+       }
+
+Note: "Pattern" will be vary from one "String Date" to another "String Date"
+      For instance, to parse "31-12-2002 17:22:33" string, use "dd-MM-yyyy HH:mm:ss" pattern

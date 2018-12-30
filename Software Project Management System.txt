@@ -1,0 +1,122 @@
+﻿What is a "project"?
+
+A project is temporary in that it has a defined beginning and end in time, and therefore defined scope and resources.
+
+And a project is unique in that it is not a routine operation, but a specific set of operations designed to accomplish a singular goal. So a project team often includes people who don’t usually work together – sometimes from different organizations and across multiple geographies.
+
+The development of software for an improved business process, the construction of a building or bridge, the relief effort after a natural disaster, the expansion of sales into a new geographic market — all are projects.
+
+And all must be expertly managed to deliver the on-time, on-budget results, learning and integration that organizations need.
+
+What is a "Project Management"?
+
+Project management, then, is the application of knowledge, skills, tools, and techniques to project activities to meet the project requirements.
+
+1. Initiating
+2. Planning
+3. Executing
+4. Monitoring and Controlling
+5. Closing
+
+Project management knowledge draws on ten areas:
+
+1. Integration
+2. Scope
+3. Time
+4. Cost
+5. Quality
+6. Procurement
+7. Human resources
+8. Communications
+9. Risk management
+10. Stakeholder management
+
+All management is concerned with these, of course. But project management brings a unique focus shaped by the goals, resources and schedule of each project.  
+
+Software Project Management System
+===================================
+
+What is Project Management System?
+
+This is a tool for software developer and software developing firms/companies that helps them to plan the software, organize, and manage resource pools and develop resource esitmates. Depends upon the software's complexity one can use this tool for the following:
+ 
+   1. To manage estination
+   2. To manage software design & developing planning
+   3. To schedule the tasks
+   4. To control the cost and to manage budget 
+   5. Resource allocation
+   6. To define peer communication
+   7. Fast real time decision making
+   8. To manage or ensure the quality of software /code/design and
+   9. Prepare documentations.
+
+Goal / Objectivies
+=========
+The primary challenge of this tool is to achieve all of the project goals and objectives while honoring the preconceived constraints. 
+The primary constraints are:
+  1. scope, 
+  2. time, 
+  3. quality and budget.
+The secondary — and more ambitious — challenge is to optimize the allocation of necessary inputs and integrate them to meet pre-defined objectives.
+
+Abstract
+=========
+
+Software Project is a kind of "Schedule" tool. This schedule tool is used to sequence project acttivites and assign dates and resources to them. It is the process and activity of planning, organizing, motivating, and controlling resources, procedures and protocols to achieve specific goals in scientific or daily problems.
+
+A project is a temporary endeavor designed to produce a unique product, service or result  with a defined beginning and end - time-constrained, and often constrained by funding or deliverables - undertaken to meet unique goals and objectives, typically to bring about beneficial change or added value. The temporary nature of projects stands in contrast with business as usual or operations, which are repetitive, permanent, or semi-permanent functional activities to produce products or services. In practice, the management of these two systems is often quite different, and as such requires the development of distinct technical skills and management strategies.
+
+Scheduling Tool
+---------------
+
+This is one of the most common tool type in our system. Scheduling tool is used to sequence project activities and assign dates and resources to them. The detail and sophistication of a schedule produced by a scheduling tool can vary considerably with the project management methodology used, the features provided and the scheduling methods supported. Scheduling tools may include support for:
+
+ 1. Manage tasks & activities
+ 2. Define resources
+ 3. Dependency relationship between activities & resources
+ 4. Resource assignment and leveling
+ 5. Critical path
+ 6. Activity duration estimation and probability-based simulation
+ 7. Activity cost 
+
+Project Planning
+---------------
+Project planning software can be expected to provide information to various people or stakeholders or customers, and can be used to measure and justify the level of effort required to complete the project(s). 
+Typical requirements might include:
+
+ 1. Overview information on how long tasks will take to complete.
+ 2. Early warning of any risks to the project.
+ 3. Information on workload
+ 4. Historical information on how projects have progressed, and in particular, how actual     and planned performance are related.
+ 5. Optimum utilization of available resource.
+ 6. Cost maintenance.
+ 7. Collaboration with each teammates and customers.
+ 8. Instant communication to collaborators and customers.
+
+
+Modules:
+
+Administrator Module:
+
+  1. Create project, set parameters
+  2. Create client account
+  3. Add Employees 
+  4. Assign Tasks to Employees
+  5. Plan the project and create schuedule
+  6. Reports
+
+Employee Module:
+
+   1. Read the task list (datasheet)
+   2. Log the task and set task status
+   3. Feedback the task.
+   4. Submit the code and documentation
+   5. Bug-Issue tracking
+
+Customer/Client Module:
+
+    1. Read the status of project
+    2. Register "issue/problem" of bug 
+    3. Reports
+
+    

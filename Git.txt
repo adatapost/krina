@@ -1,0 +1,26 @@
+Git - It is a source code control protocol proposed by the inventor of "Linux Operating System", Mr. Linus Torwald. 
+
+We, the developers, create a code repository and update codebase in number of branches - where each branch contains different version of code.
+
+GitHub is a web-site which provide the "Git" (free as well as paid) service.
+
+https://github.com/ 
+
+ How git works?
+ --------------
+
+  Sample.java --> saved under       
+                    (master branch)
+              ---> Changes in Sample class saved under 
+                    (first-change branch)
+              ---> Changes in Sample class saved under
+                    (second-change branch)
+
+     So here, we've three version of source code of Sample class.
+
+
+To work on "git" locally, download git-client from https://git-scm.com/
+
+
+
+

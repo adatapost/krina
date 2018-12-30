@@ -1,0 +1,112 @@
+The Enum Type
+==============
+
+What is an "enum"? 
+ 
+  It is a mechanism to represent data using a plain simple name (English like verb, name or identifer).
+  
+ Or
+
+ To give or assign sumbolic name to your data.
+
+
+Why we have to use enum?
+
+   Enum is not mandatory but it improve the code readability. So the only purpose of use of enum is to document the program/code.
+
+Here is an example of C Language: (In  C language there is not such datatype to represent boolean)
+
+#include <stdio.h>
+
+enum bool { false = 0 , true = 1 };
+
+bool is_prime() {
+   if(something....) 
+       return true;
+   return false;
+}
+
+You can see the use of "enum" in C language. You've written "true" which represents the value 1 and the verb "false" represents the value "0".
+
+In Java, we can create "enum" using the enum keyword and here is the syntax of enum class:
+
+ 1. Enum should be public
+ 2. Enum cannot extends any class or any other enum class.
+ 3. Enum class is instantiate inside the enum definition which must be written at the
+    begining of the enum class definition -- very first line(s). Each instance is delimted by the 	comma (,). Each instance implicilty created by the Java Compiler by selecting appropriate
+	constructor defined in it.
+
+Example: The simplest way to create an enum is:
+
+public enum Day {
+  Mon,Tue,Wed,Thr,Fri,Sat, Sun;
+}
+
+Note: Instance name of enum type can be all uppercase or PascalCase. Enum instances are immutable and cannot be replaced/changed.
+
+Now, to use the enum in your code:
+
+   //Declare a variable to repersents the day
+   Day toDay = Day.Sat;
+   //You can use enum instance with if amd switch statements.
+   if(toDay == Day.Mon) {
+      //TODO
+   } else if(toDay == Day.Tue) {
+       //TODO
+   }
+
+  //With "switch" cases, only the "labels" or "instance identifiers" are used
+
+  switch(toDay) {
+     case Sun: break;
+     case Fri: break;
+     case Mon: break;
+  }
+
+In case, if you want to attach or assign some data to the each instance of enum then you have to define appropriate fields to represent the data, getter methods and a "constructor" which takes instance specific data and assign them to appropriate fields.
+
+public enum Day {
+  Sun(0,"Sunday),
+  Mon(1,"Monday);
+ 
+  // fields to represent day number and full day name
+  private int dayNo;
+  private String fullName;
+  //Constructor is must
+  Day(int dayNo, String fullName) { this.dayNo = dayNo; this.fullName = fullName; }
+  //getters
+  public int getDayNo() { return dayNo; } 
+  public String getFullName() { return fullName; }
+}
+Example: Create "Subject" enum with five instances
+public enum Subject {
+ Maths,Science, English, Gujarati, Hindi
+}
+Now, create a "SubjectExam" class
+public SubjectExam { 
+   private Subject subject;
+   private int total, obtained;
+   //TODO -- Constructors, Getters, Setters
+}
+
+Now, to repesents marks of some subjects of a student (code in main method):
+  ArrayList<SubjectExam> marks = new ArrayList<>();
+  marks.add( new SubjectExam(Subject.Maths, 100, 40) );
+  marks.add( new SubjectExam(Subject.English, 100, 30) );
+  marks.add( new SubjectExam(Subject.Science, 100, 70) );
+  for(SubjectExam mark : marks) {
+    System.out.println( mark.getSubject() + " " + mark.getTotal() + " " + mark.getObtained());
+  }
+
+ 
+
+
+
+
+
+
+
+
+
+
+ 

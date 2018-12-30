@@ -1,0 +1,157 @@
+The Map<K,V> Interface and its implementation "HashMap<K,V>" and "Hashtable<K,V>" classes
+==========================================================================================
+
+The Map is a collection of "Key-Value" pairs. In fact Map is a collection of "Set<K>" and "Collection<V>". It means, Key in Map are "Set<T> -- unique" and Value in Map are "Collection<V> -- List<V>, Set<V> or another Map".
+
+
+The "K-Key" in a map must be unique. i.e. the K - Key type must have implementation of "equals" and "hashCode" methods. V - Value type can be anything -- null, not null, unique or non-unique or map.
+
+HashMap Vs Hashtable
+--------------------
+Hashtable is "old" or "legacy" class has both new APIs as well as old APIs. Don't use Hashtable in new projects. HashMap is a Hashtable that contains only "stable and latest" features/methods.
+
+Example: Create Map or Dictionary to represent roll-name pairs of "students"
+
+HashMap<Integer, String> s = new HashMap<>();
+//put(key,value) -- to add/set the entry
+s.put(10,"Yash");
+s.put(20,"Krina");
+s.put(10,"Yash Modi");  // will replace the previous entry's value
+
+//get(key) - returns a value if exists , returns null otherwise
+
+System.out.println( s.get(50) );  // null
+System.out.println( s.get(10) );  // Yash Modi
+System.out.println( s.get(20) );  // Krina
+
+s.put(1,"Janvi");
+
+//traverse the Map -- keySet() method returns Set<K>
+for(Integer roll : s.keySet()) {
+   System.out.println(roll + "   : " + s.get(roll) );
+}
+
+//Traverse the Map --- values() method returns Collection<V> -- only values
+for(String name : s.values()) {
+  System.out.println( name );
+}
+
+//Traverse the Map -- entrySet() method returns Set<Map.Entry<K,V>>
+for(Map.Entry<Integer,String> e : s.entrySet()) {
+  System.out.println(e.getKey() + " : " + e.getValue());
+}
+
+//Search by key
+Integer sNo = 32;
+if( !s.containsKey( sNo ) ) 
+   s.put(sNo, "Shivani");
+else 
+   System.out.println("Entry exists!");
+
+System.out.println( s.containsValue("Yash Modi" ));  // true
+
+//remove(key)  - remove the entry
+s.remove(45);  // Not found
+s.remove(10);
+System.out.println(s.get(10)); // null
+
+Example: Represent country wise states (state names)
+
+ HashMap<String, HashSet<String>> c = new HashMap<>();
+
+ //add country entry
+ c.put( "India", new HashSet<>() );
+ c.put( "Nepal", new HashSet<>() );
+
+ //add states
+ c.get("India").add("Guj");
+ c.get("India").add("Raj");
+ c.get("Nepal").add("Kat");
+ c.get("India").add("Mah");
+
+ //traverse the map
+ for(String country : c.keySet()) {
+    System.out.println( country );
+    //traverse the states
+    for(String state : c.get(country)) {
+       System.out.println("\t\t" + state);
+    }
+ }
+
+Example : Country-State-City collection
+
+HashMap<String, HashMap<String, HashSet< HashMap<Integer,String> >>> c = new HashMap<>();
+
+
+ //Traverse the collection using entrySet() 
+ for(Map.Entry<String, HashSet<String>> country: c.entrySet()) {
+    System.out.println( country.getKey() );
+    //traverse the states
+    for(String state : country.getValue() ) {
+       System.out.println("\t\t" + state);
+    }
+ }
+
+Example: Create a "ProductRepository" class with add, delete, search, update and list method to process the "Product" objects
+
+1. Create "Product" class
+public class Product {
+  private int id;
+  private String name;
+  private String unit;
+  private boolean available;
+  private double rate;
+  private double disount;
+  //TODO
+}
+2. Create "ProductRepository"
+public class ProductRepository {
+   private HashMap<Integer, Product> map = new HashMap<>();  // id-Product entry collection
+  
+   public boolean add( Product prd ) {
+       if(!map.containsKey( prd.getId() ) )  {
+            return map.put( prd.getId(), prd);
+       }
+       return false;
+    }
+
+   public boolean remove( int id ) {
+       return map.remove( new Integer(id) );
+   }
+   public Product get(int id) {
+       return map.get( new Integer(id) );
+   }
+   public Collection<Product> getProducts() {
+       return map.values();
+   }
+   public Set<Integer> getIds() {
+        return map.keySet();
+   }
+}
+
+code in main method:
+ ProductRepository pr = new ProductRepository();
+ pr.add( new Product(10,"Pen",....) );
+ pr.add( new Product(20,"Pencil",....) );
+ pr.add( new Product(10,"Book",....) ); // cannot add because duplicate product id
+ 
+ for(Product p : pr.getProducts()) 
+    System.out.println(p.getId() + " "+ p.getName() + .....);
+
+ pr.remove(10);
+ pr.get(20).setRate(4,5); // Update the object
+ pr.get(20).setUnit("KG"); 
+
+ for(Product p : pr.getProducts()) 
+    System.out.println(p.getId() + " "+ p.getName() + .....);
+
+ 
+
+
+
+
+
+
+
+
+

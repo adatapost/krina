@@ -1,0 +1,49 @@
+The Java Platform
+==================
+
+What do you meant by the term "Platform"?
+ 
+   A "Platform" is a computing environment that is used to develop, deploy and
+   execute the applications in distributed environment.
+
+   Basically, the Operating System is our first programming platform. To code in OS,
+   we need to use C or C++ programming languages and libraries. Due to lack of know-
+   how of C/C++, we can't develop apps on OS platform directly. Instead, we will 
+   use "high-level platforms like - Java, DOTNET, etc" that will install upon the
+   OS and provide OS services to us.
+
+    Java Language Or Scala Language or Kotlin language etc.
+    --------------------------------------
+    Java Platform
+     --------------------------------------
+     OS Platform
+
+There are four sub platforms of Java
+  1. Java SE - Standard Edition 
+  2. Java ME - Micro Edition
+  3. Java Fx - Graphics  (Fix)
+  4. Java EE - Enterprise Edition
+
+Each sub Platform has :
+    1. Application Programming Interface (API) or Library (Class library)
+    2. Runtime (Java Runtime Environment)
+
+ 1. API - It is a huge "TYPE Library" and it include almost all purpose TYPES ranging
+    from String handling to Graphical User Interface and Database.
+    Note: There are approx 2500 TYPES in Java SE. (ME, Fx and EE have different
+    purpose classes/types).
+
+ 2. Java Runtime Environment (JRE) - It is rich runtime environment that prepares 
+    a "program - Java .class file" for the execution (OS can execute).
+
+    Note that the JRE cannot execute program but it prepares your program so the 
+    OS will execute the instructions of your program.
+
+When you install Java Developer Kit (JDK), Java SE platform will be installed along with "Java" compiler. Current JDK version is 10 - Java 10 or JavaSE 10 and also Java language's specification is 10.
+
+ 
+
+  
+
+  
+    

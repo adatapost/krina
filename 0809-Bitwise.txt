@@ -1,0 +1,77 @@
+Bitwise operators
+------------------
+These operators are used to manipulate the bit pattern of "int" family data.
+
+                                               Value ( int no)
+          8   7   6   5     4   3    2   1
+         128 64  32  16     8   4    2   1
+          0   0   0   0     0   0    0   0  =   0
+          0   0   0   1     0   0    0   0  =   16 - set 5th bit
+          0   0   0   1     0   0    0   1  =   17 - set 1st and 5th bit
+
+          1    1  1    1    1    0     1  0  = 250
+ & bitwise and - It tests wether a given bit is set or not
+    Assume the value of no is 17.
+     no & 2  - Is 2nd gate is open? if return value is zero then it is closed/unset
+     no & 16 - 5th is set? Yes (Result is non-zero 16)
+                0001 0001  &  0001 0000 = 0001 0000 (which is non zero)
+
+
+ public class Test {
+  public static void main(String []args) {
+    int no = 250, i = 1, j = 1;
+  
+    while(i<=128) {
+       System.out.println("Gate : " + j + ((no & i)!=0 ? " Opened" : " Closed") );
+       i *=2; 
+       j++;
+    }   
+    
+  }
+}
+
+
+| bitwise or operator is used to "set" a bit at given position.
+
+   Example:  
+
+     int no = 0b0000_0000;
+     //open 1st and 5th gate 
+     no = no | 1;  // set 1st bit
+     no = no | 16;  // set 5th bit
+     System.out.println( no );
+     //open 8th gate
+     no = no | 128;
+     System.out.println( no );
+
+^ bitwise exclusive or operator is used to "turn on" a off bit and "turn off" an on   bit.
+  Example:
+      int no = 0b0000_0000;
+     //open 1st and 5th gate 
+     no = no ^ 1;  // set 1st bit
+     no = no ^ 16;  // set 5th bit
+     System.out.println( no );
+     //Turn off 1st bit
+     no = no ^ 1;
+     System.out.println( no );
+     //Turn off 5th bit
+     no = no ^ 16;
+     System.out.println( no );
+
+
+Shift operators insert off bits at left or right side of the given binary value.
+
+Example:
+
+    for(int i=1;i<=8;i++) {
+       System.out.println( 
+              Integer.toString(1 << i,2) + "  = " 
+                                         + (1 << i  ) );   
+     } 
+
+ Integer.toString( intValue, radix ) - This method format the "intValue" into string based upon given "radix - base number 2 for binary, 16 for hexa, 8 for octal etc).
+
+  System.out.println( Integer.toString( 212, 2) ); // Binary
+  System.out.println( Integer.toString( 212, 16) ); // Hexa
+  System.out.println( Integer.toString( 212, 8) ); // Octal
+     

@@ -1,0 +1,273 @@
+Exception & Exception System
+=============================
+
+What is an "Exception"?
+
+  Abnormal condition arise in a code or "abnormal code" (A thing which is not normal) is known as "Exception" and if this exception is not handled properly then your code might produce incorrect result or your program might terminate abruply.
+
+  In Java, an "Exception System" is design to raise and pass "message or notification" in the form
+  of an "object of java.lang.Thrawable class" when an abnormal condition arises in the code.
+
+The Exception System
+---------------------
+
+  We've java.lang.Throwable class which is a super class of "ALL KIND OF EXCEPTIONS  (Notifications)" classes.
+
+  For the sake of simplicity and better orginization "Exception - Throwable class" is further
+  inheritated by following direct sub-classes and also they form the "TYPES of EXCEPTIONS":
+
+     1. Checked Exception -- java.lang.Exception class
+        
+        This "kind" of "exceptions" are reported by the "Java Compiler" as well as "Java Virual
+         Machine (Java Runtime)" to avoid abnormal termination of code.
+
+         This category of "exceptions" are for the "Java Developers" because they are reported
+          (or say send notifications) at the time of compiling.
+
+     2. Unchecked Exception -- java.lang.RuntimeException class
+
+          This "category/kind" of "exceptions" are reported only at JVM (Runtime) and these 
+          exceptions are reserved for Java's low-level classes or system level classes.
+		
+     3. Fatal Exceptions or Unhandled Exceptions -- java.lang.Error class
+   
+          This "kind" of exceptions are not handled and also they are evaluted during program
+           execution (runtime) and it will terminate the program abruply.
+
+Exception handling keywords/statements
+---------------------------------------
+In order to define an "Exception" or to handle the "Exception" or to raise the "exception", we must have to use following keywords/statements:
+
+1. try  and try-with-resource syntax
+2. catch
+3. throw 
+4. throws
+5. finally
+
+The "throw" keyword "send" or "throw" or "pass" the "Throwable" object to the "user (code)".
+     Syntax:    throw  new Exception();  Or throw new Error()  or throw new RuntimeException()
+
+The "throws" keyword is used to "report" the exception or "re-throws" the exceptions which are not
+     handled.
+     Syntax:
+       access-modifier return-type  methodName(arg...) throws Exception, RuntimeException, ... {
+          //TODO
+       }
+The try..catch..finally syntax is used to "handle", "receive" and "re-throws" the exception. 
+
+     Syntax-1  Simple try..catch..finally
+
+           try {
+               //TODO - Write code here which might raises an exception
+           }catch(SubException ex1) {
+              //TODO
+           }catch(SubException1 ex2) {
+              //TODO
+           }.....
+             //
+           .......
+           }catch(Exception ex) {
+              //TODO -- java.lang.Exception class must appear at the last catch clause if 
+              //        there are more than one "catch" caluses.
+           } finally {
+              //TODO
+           }
+
+     Syntax-2  try-with-resource -- This syntax work only with those classes have implemeted
+                                    java.lang.AutoCloseable interface.
+               try( AutoCloseableClass obj = .... ) {
+               }catch(Exception1 e) {
+               }catch(Exception2 e) {
+               }...... 
+                ......
+               }finally {
+               }
+
+IMPORTANT - In mulitple catch clauses, sub-classes of "Exception" or "RuntimeException" must appear before the "Exception" or "RuntimeException" catch clause. --- because a super class reference variable can hold reference of sub-class object i.e. Object casting.. So, in that case sub-classes of "Exception" catch clauses wont be tested/executed.
+
+try-finally
+------------
+
+  public static void main(String []args) {
+      try{
+         System.out.println("Hello!");
+         //return;
+         System.exit(0); // Terminate JVM forcefully
+      }finally {
+         System.out.println("Done!");
+      }
+   }
+ 
+In this syntax, finally is mandatory. 
+
+try-catch or try-catch-finally  (or multiple catch clauses)
+-------------------------------
+In this syntax "finally" is an optional.
+
+Example: Design custom "AgeException", raise and throw the "AgeException" for the "Employee" class.
+
+class AgeException extends Exception {
+  public AgeException(String msg) {
+       super(msg);
+  }
+}
+
+class Emp {
+   private int age;
+   public Emp(int age) throws AgeException {  // because we don't want to handle the raise
+                                              // exception
+      if(age<15)  // raise an exception
+          throw new AgeException("Invalid Age! Minor detected!");
+      if(age>70)  // raise an exception
+          throw new AgeException("Invalid Age! It's time to retire.");
+   
+      this.age = age;
+   }
+}
+  
+class App {
+  public static void main(String []args) {
+      //Emp() constructor reports the "Checked Exception" so code must be enclosed in try..catch
+      try {
+         Emp emp = new Emp(3);
+         System.out.println("Done!");
+      }catch(AgeException ex) {
+         System.out.println("Something related to age... " + ex);
+      }catch(Exception ex) {
+         System.out.println("Unknown exception..." + ex);
+      }
+  }//EndMain
+}//EndClass
+
+
+Chain of exceptions (or Linked list of exception)
+==================================================
+The java.lang.Exception class has a two parameter constructor:
+     
+     java.lang.Exception(String message, Exception parentException )
+
+The two parameter constructor of Exception help us to embed to existing exception while creating a new exception object.
+
+Consider the following example:
+
+class A {
+
+  public void method1() throws Exception {
+     throw new Exception("Cause - Related to null pointer..");
+  }
+
+}
+class B {
+   public void method2() throws Exception {
+     // Handle and re-throws the exception
+     try {
+        A a = new A();
+        a.method1();
+     }catch(Exception ex) {
+        throw new Exception("Cause - File related..",ex);
+     }
+   }
+}
+class C {
+   public void method3() throws Exception {
+     try {
+        B b = new B();
+        b.method2();
+     }catch(Exception ex) {
+         throw new Exception("Cause - Illegal access related...",ex);
+     }
+  }
+}
+class App {
+   public static void main(String []args) {
+     try {
+        C c = new C();
+        c.method3();
+     }catch(Exception ex) {
+         ex.printStackTrace(); // This method will write entire stack of exceptions
+     }
+   }
+}
+
+Example:
+
+class AgeException extends Exception {
+  public AgeException(String msg) {
+       super(msg);
+  }
+  public AgeException(String msg, Exception ex) {
+       super(msg,ex);
+  }
+}
+class NameException extends Exception {
+  public NameException(String msg) {
+       super(msg);
+  }
+  public NameException(String msg, Exception ex) {
+       super(msg,ex);
+  }
+}
+class EmailException extends Exception {
+  public EmailException(String msg) {
+       super(msg);
+  }
+  public EmailException(String msg, Exception ex) {
+       super(msg,ex);
+  }
+}
+
+
+
+class Emp {
+   private int age;
+   private String name;
+   private String email;
+
+   public void setAge(int age) throws AgeException {
+      if(age<15)  // raise an exception
+          throw new AgeException("Invalid Age! Minor detected!");
+      if(age>70)  // raise an exception
+          throw new AgeException("Invalid Age! It's time to retire.");
+   
+      this.age = age;
+   }
+
+  public void setName(String name) throws NameException {
+      if(name == null )
+         throw new NameException("Name cannot be null");
+       if(name.length()<5) 
+         throw new NameException("Name lenght cannot below 5 char");
+       if(name.length()>50)
+         throw new NameException("Name lenght cannot exceed 50 char");
+        this.name = name;
+  }  
+ public void setEmail(String email) throws EmailException {
+      if(email == null )
+         throw new EmailException("Name cannot be null");
+        this.email = email;
+  }  
+
+  public Emp() { }
+  public Emp(int age, String name, String email)
+              thorws AgeException, EmailException, NameException {
+     setAge(age);
+     setName(name);
+     setEmail(email);
+   }
+}
+  
+class App {
+  public static void main(String []args) {
+    
+      try {
+         Emp emp = new Emp(3,"AA",null);
+         System.out.println("Done!");
+      }catch(Exception ex) {
+         ex.printStackTrace();
+      }
+  }//EndMain
+}//EndClass
+
+                
+ 
+   

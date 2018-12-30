@@ -1,0 +1,48 @@
+Clone (copy) the objects
+=========================
+
+Not all objects (classes) are cloneable. We can't call clone() method unless the class itself is marked as "Cloneable" --- the java.lang.Cloneable interface tells the JVM that the particular class has an ability to 'clone'.
+
+In following example, we will have to implement the marker interface --- java.lang.Cloneable ( Why this interface is called marker ? Ans - Because this interface is used as an instruction to the JVM), and overrride the 'clone()' method.
+
+package com.krina;
+class Student implements Cloneable {
+   private int age;
+   private String name;
+
+   public void setAge(int age) { this.age = age; }
+   public int getAge() { return age; }
+   public void setName(String name) { this.name = name; }
+   public String getName() { return name; }
+   
+   public Object clone() throws CloneNotSupportedException {
+      return super.clone();
+   }
+
+}
+class App {
+   public static void main(String []args) {
+     try {
+         Student s = new Student();
+         s.setAge(10);
+         s.setName("Reena");
+         Student p = (Student) s.clone();
+         System.out.println(s.getAge() + " " + s.getName());
+         System.out.println(p.getAge() + " " + p.getName());
+
+         System.out.println(s + " " + p);
+         p.setAge(3);
+         p.setName("Heena");
+         System.out.println(s.getAge() + " " + s.getName());
+         System.out.println(p.getAge() + " " + p.getName());
+     }catch(Exception ex) {
+         ex.printStackTrace();
+     }
+   }
+}
+
+ 
+
+
+
+

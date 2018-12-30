@@ -1,0 +1,29 @@
+Generics or Parameterized Types
+=================================
+
+ To pass one or more "TYPE(s)" to another "TYPE" or "METHOD" is known as "Parameterized Types" or "Generics - General Purpose Types".
+  
+  Like method parameters, the "Generics classes, enums and interfaces" can take "parameters" but these "parameters" are "Classes, Interfaces or Enums".
+
+Syntax:
+
+access-modifier class ClassName<TypeParam1, TypeParam2,....> {
+  //body
+}
+
+< > - Pair of opening & closing angle bracket is called "Diamond Operator".
+
+Inside the <> diamond operator, there may be one or more TYPE Parameters. Type parameters name shoud be in UPPER alphabet -- it is the Java's standard naming convention (guideline).
+
+What is the application/usage of Generics Type?
+  
+  -> It is the unique feature of Java Language to "re-use" the very same source code
+     for one or more TYPES. Especially "Generics" are welsuited to define the 
+     Data-Structure algorithms - Stack, Queue, Linked List, Graphs, Sort and many more.
+
+What exactly a "Type Parameter" is?
+  It is a "any" Java class (Or the sub-class of java.lang.Object), interface or enum
+  and this class, interface or enum is "passed" to the "Generics" type.
+  It is important to note that Java's primitive types (byte, short, int, long, float, double, char and boolean) cannot be used with "Generics" parameter because they are not
+  the member of Java's core API -- these primitives are not sub-classes of java.lang.Object.
+

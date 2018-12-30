@@ -1,0 +1,24 @@
+What is "GIT"?
+
+  It is a source code control protocol. People uses this "protocol" to implement the source code   control tools. 
+
+  This protocol (GIT) is proposed and developed by the creator of the LINUS OS - Mr. Linus   Torvald.
+
+Download the GIT tool for your OS (x86 or 64):
+
+ Visit   https://git-scm.com/download link to download the GIT tool.
+
+ This tool is used to "manage" local repositories -- a repository is a "file system" folder which keeps different version/edition of source code or documents in the form of "nodes". Each node is a "Hash" of changed document.
+
+ You can use the "Remote" repositories to share the "documents and project source code". There are number of 'remote repositories' -- bitbucket, github etc. We will use "github" remote repository to synchronize our local repositories to remote repositories.
+
+
+Step-1 Install the git-scm tool (First time or once)
+
+Step-2 Open the command prompt and type "git" command to test whether your system have "git" installed or not. The "git" command will displays help text at command prompt if it is installed.
+
+
+
+
+
+

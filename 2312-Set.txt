@@ -1,0 +1,64 @@
+The Set<T> interface and its implementation class HashSet<T>
+------------------------------------------------------------
+The "T" type in Set<T> must have override the "equals" and "hashCode" method -- object comparision ability -- in order to use the Set<T> classes.
+
+code in main: Unique city list
+
+  HashSet<String> cities = new HashSet<>();
+  cities.add( "Meh" );
+  cities.add( "Ahmedabad" );
+  cities.add( "Patan" );
+
+  for(String city : cities) 
+     System.out.println(city);
+
+  //Now, add "Patan" city again
+  cities.add("Patan");   // Won't be added
+  cities.add( "Jamnagar" ); // added
+  
+  //remove an object
+  cities.remove("Mehsana");  // can't find so can't remove
+  cities.remove(""Ahmedabad");
+
+  //traverse
+  for(String city: cities)
+    System.out.println( city );
+
+  //Search an element/object
+  if(cities.contains("Vis")) {
+      System.out.println("Found!");
+  } else {
+      System.out.println("City : Vis - not found");
+  }
+  
+Example: HashSet<T> of Subject enum 
+
+public enum Subject { Maths, Science, Hindi, Gujarati }
+
+code in main:
+
+    HashSet<Subject> subjects = new HashSet<>();
+    subjects.add( Subject.Maths );
+    subjects.add( Subject.Maths );
+    subjects.add( Subject.Hindi );
+    for(Subject s : subjects)
+         System.out.println(s);
+
+Example: HashSet<T> of SubjectExam class --- In "enum" type, Java compiler provide implementation of equals and hashCode method implicitly but in the case of "SubjectExam" class, we must have to override "equals" and "hashCode" manually.
+
+1. Define the "Subject" enum ( as per previous sample)
+2. Define the "SubjectExam" with "equals" and "hashCode" ( last session example)
+public class SubjectExam {
+  ....
+  ....
+  @Override public int hashCode() { reutrn subject.hashCode(); }
+  @Override public boolean equals(Object obj) { return hashCode() == obj.hashCode(); }
+}
+3. code in main 
+  HashSet<SubjectExam> subjects = new HashSet<>();
+  subjects.add(new SubjectExam( Subject.Maths, 100, 60) );
+  subjects.add(new SubjectExam( Subject.Maths, 100, 70) );
+  ....
+  ....
+
+  

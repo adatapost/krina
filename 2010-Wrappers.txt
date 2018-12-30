@@ -1,0 +1,109 @@
+Wrapper classes of Java's primitive data types
+===============================================
+Java's primitive types are not  the members of core APIs because they are not "real" classes. In Java SE2, some new classes introduced under "java.lang" package which duplicates the functionality of "primitives" and these classes enhance the "primitive" by adding some useful methods.
+
+Primitive 		Wrapper class
+---------------------------------------
+byte			java.lang.Byte
+short			java.lang.Short
+int			java.lang.Integer
+long			java.lang.Long
+
+float			java.lang.Float
+double			java.lang.Double
+
+[Note: All above mentioned "wrappers" are sub class of java.lang.Number class]
+
+char			java.lang.Character
+boolean			java.lang.Boolean
+
+Autoboxing -- What is autoboxing?
+---------------------------------
+To transform "primitive" object to "reference type" object of "wrapper" is called autoboxing.
+
+ code in main:
+ 
+      int no = 10;
+      Integer no1 = no;   // primitive to reference type
+      System.out.println( no1  + "  " + no);
+      no1++;
+      no--;
+      System.out.println( no1  + "  " + no);
+
+Autounboxing 
+----------------------------
+To transform "reference type of wrapper" to primitive is called "autounboxing".
+
+ code in main:
+     Integer no = 10; // autoboxing
+     int n = no;      // autounboxing
+
+
+  Integer no = new Integer(10); // Integer no = 10;
+
+Example: Determine the range of "primitive" types and also size in bytes with the help of "wrapper" constants.
+
+ System.out.println( Integer.SIZE ); // 4
+ System.out.println( Integer.MIN_VALUE + "  " + Integer.MAX_VALUE );
+
+Example: primitive to string format  (To format means transform "data" to string) using String.valueOf( data ) method.
+  
+ 
+      int n = 10;
+      String str = String.valueOf( n );
+      System.out.println( str  );
+      str = String.valueOf( 10.10 );
+      System.out.println( str  );
+
+Example: Wrapper to string format. You can use "toString()" overriden method or String.valueOf()
+
+  Integer no = 100;
+  String str1 = no.toString();
+  String str2 = String.valueOf( no );
+  System.out.println( str1 + "    " + str2);
+
+Note: You can use "" + value   -- string concatenate syntax to format the data
+
+Example: Return value in primitive types from an instance of wrapper using xxxxValue() methods.
+
+ Double amount = 123.30;
+ int n = amount.intValue();
+ byte b =amount.byteValue();
+ float d = amount.floatValue();
+ System.out.println( n +  "  " + b +  "  " + d);
+
+Example: String to primitive parse (parse means to separate the chars or digits)
+  Wrappers have methods namely parseXXXXX( string ) which parse the strnigs.
+
+  String str = "100";
+  int n = Integer.parseInt( str );
+
+ Or you can use Wrapper's constructor:
+
+    String str = "100";
+    Integer n = new Integer(str);
+    Sytem.out.println( n );
+
+ You may pass "radix" to the method "parseInt(str, radix)" to parse binary, hexa or octal strings
+
+    String str = "1010";
+    int n = Integer.parseInt( str , 2);  //2 for binary, 8 for oct, 16 for hexa
+    String (n);
+
+Example: Implicit and explict cast (Number to wrappers and wrappers to number)
+
+     Number n1 = 10.10;
+     System.out.println( n1 + "   " + n1.getClass().getName() );
+     n1 = 10;
+     System.out.println( n1 + "   " + n1.getClass().getName() );
+     Float k = (Float) n1;
+
+Note: getClass() method belongs to "java.lang.Object" class
+
+
+
+ 
+
+
+
+

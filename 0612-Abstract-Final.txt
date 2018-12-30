@@ -1,0 +1,100 @@
+The "abstract" and "final" keywords
+====================================
+
+The 'abstract' keyword is used to define an abstract class as well as an abstract method.
+
+An abstract class means partially (not fully developed) developed class. In some cases, you restrict the user of class that the user cannot 'instantiate' your class. In such situtation, you need to define an abstract class.
+
+For instance,
+
+abstract class A { 
+  public void foo() {
+    //TODO
+  }
+}
+Now, no one can instantite the 'A' class.  A a = new A(); is invalid
+
+But, a sub class of 'A' will work:
+   class Aa  extends A { }
+   and you may instantite the 'Aa' :  Aa a = new Aa();  OR
+                                      A  a = new Aa();
+
+Further, if you wish that some of the methods of your class must override by the users then you must have to use 'abstract' keyword with method declaration.
+
+  Note:  abstract class  means "Must Inherit class"
+         abstract method means "Must override method"
+
+For instance,
+
+abstract class Language {
+ public void cry() {
+   System.out.println("I'm crying!!");
+  }
+   
+  abstract public void speak();
+}
+ 
+class English extends Language {
+ public void speak() { 
+   System.out.println("I can speak English");
+ } 
+}
+class Hindi extends Language {
+ public void speak() { 
+   System.out.println("I can speak Hindi");
+ } 
+}
+
+class App {
+   public static void main(String []args) {
+     Language []speakers = { new English(), new Hindi(), new Hindi(), new English() };
+     for(Language speaker : speakers) 
+        speaker.speak();
+  }
+}
+
+final class - Prevent a class to be a super class (Not Inheritable class)
+final method - Prevent a method to be overriden in sub class (Not Overridable method)
+class A {
+  final public void about() {
+      System.out.println("Code written by Mr. A");
+  }
+}
+class B extends A {
+  public void about() { ... } /* Error -can;t override the final method */
+}
+ 
+
+
+
+
+abstract class Language {
+ public void cry() {
+   System.out.println("I'm crying!!");
+  }
+   
+  abstract public void speak();
+}
+ 
+class English extends Language {
+ public void speak() { 
+   System.out.println("I can speak English");
+ } 
+}
+class Hindi extends Language {
+ public void speak() { 
+   System.out.println("I can speak Hindi");
+ } 
+}
+
+class App {
+   public static void main(String []args) {
+     Language []speakers = { new English(), new Hindi(), new Hindi(), new English() };
+     for(Language speaker : speakers) 
+        speaker.speak();
+
+   }
+ 
+}
+
+ 

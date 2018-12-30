@@ -1,0 +1,32 @@
+Variable length parameters  Or VarArg or Var Param syntax
+==========================================================
+In Java, we can define such a parameter that can takes zero or more arguments in the form of one dimensional array.
+
+ Syntax:
+
+    returnType methodName(TypeName...params) {  }
+
+    Three dots ... is known as ellipses and the name of argument "params" can be any valid     identifier.
+
+public class App {
+  public static void setMarks(int...marks) {
+     System.out.println("Total elements : " + marks.length);
+     for(int n : marks) {
+        System.out.println("Mark : " + n);
+     }
+  }
+
+  public static void setCities(String...cities) {
+     System.out.println("I've visited...\n");
+     for(String city : cities) {
+        System.out.println("\t" + city);
+     }
+  }
+
+  public static void main(String []args) {
+      setMarks(); // an array will be zero length 
+      setMArks(30,50,60,70); 
+      setCities("Meh");
+      setCities("Pat","Raj","Vis");
+   }
+}

@@ -1,0 +1,310 @@
+The Collection Framework
+=========================
+
+Basically, a collection is a group of objects. In Java, package java.util has data-structure classes (some of them are abstract and some of them are fully developed) that allow us to create the collections of objects.
+
+Following interfaces from java.util package describe the nature & application of collection classes:
+
+                                     (1)
+                           java.lang.Iterable<T> interface
+                                      |
+                                     (2)
+                            java.util.Collection<T> interface 
+                                      |
+            |---------------------------------------------------------------|
+            (3)                       (4)                                  (5)
+           java.util.List<T>          java.util.Set<T>       java.util.Map<K,V>
+       (an ordered list)              ( a set / unique items)  (Key-value pair collection
+	 	(interface)		(interface)		Or Dictionary or Map )
+						            (interface)              
+             |
+            (6)				(7)				(8)
+            classes			classes				classes
+       java.util.ArrayList<T>		java.util.HashSet<T>		java.util.HashMap<K,V>
+       java.util.Vector<T>		java.util.TreeSet<T> and	java.util.Hashtable<K,V>	
+       java.util.Stack<T> 		many more...			and many more
+       java.util.LinkedList<T> and
+        many more.....
+
+      NOTE: You may find "collections" classes in other packages of JavaSE/EE APIs.
+
+Example: java.util.ArrayList<T> class methods (code in main method)
+
+ArrayList<T> is a dynamic array which allow us to insert/remove/update/traverse the elements.
+
+      java.util.ArrayList<String> cities = new java.util.ArrayList<>();
+      
+      // Append an element 
+      cities.add("Surat");
+      cities.add("Rajkot");
+      cities.add("Mehsana");
+
+      // Get an element at index
+      System.out.println( cities.get(0) ); // Surat
+      System.out.println( cities.get(2) ); // Mehsana
+
+      // Length/size of collection
+      System.out.println( cities.size() );  // 3
+
+      // Add/insert at index
+     cities.add(0, "Visnagar");
+
+     //Traverse
+     for(String city : cities) {
+        System.out.println( city );
+     }
+     
+     //Search an element - contains() returns boolean
+     String search = "Mehsana";
+     if( cities.contains( search ) ) {
+       System.out.println("Found!");
+     } else {
+        System.out.println("Not found");
+     }
+
+      //Search an element - indexOf() returns index of searched element, returns -1 otherwise
+      int r = cities.indexOf( search );
+      System.out.println(r);
+      System.out.println( cities.indexOf("Suurat") );
+
+      //Set/replace an element
+      cities.set(1,"Ahm");
+      cities.set(3,"Meh");
+
+      //Remove the elements
+      cities.remove("Visnagar");
+      cities.remove(1);  // remove at index
+    
+   //Traverse
+     for(String city : cities) {
+        System.out.println( city );
+     }
+  }
+}
+Example: Collection of "Product" objects
+1. We've 'Product class,
+public class Product {
+  private int id;
+  private String name;
+  private String category;
+  private double price;
+  private boolean available;
+  //TODO 
+}
+2. code in main
+ java.util.ArrayList<Product> products = new java.util.ArrayList<>();
+ products.add( new Product(10,"Natraj HB 6", "Pencil", 5.6, true) );
+ ... add some more products...
+ //traverse 
+ for(Product product : products) {
+   System.out.println( product.getId() + " " + product.getName() + ......... );
+ }
+
+Example: Encapsulate the 'Product' collection into 'ProductRepository' class
+
+1. Product class --- as per previous example
+2. ProductRepository class
+
+public class ProductRepository {
+  private java.util.ArrayList<Product> products = new java.util.ArrayList<>();
+
+  public java.util.ArrayList<Product> getProducts() { return products; }
+ 
+  public void add(Product product) {
+      products.add( product );
+  }
+  public void add(int id, String name, String category, double price, boolean available) {
+       products.add( new Product(id,name,category,price, available) );
+  }
+  
+  public boolean removeById(int id) { 
+
+  }
+  public boolean removeByName(String name) { /* TODO */ }
+  public boolean removeByCategory(String category) { /* TODO */ }
+  
+  public void sortById() { /* TODO */ }
+  public void sortByName() { /* TODO */ }
+ 
+}
+ 
+Sorting the collections as well as arrays
+==========================================
+There is a method called sort() in "ArrayList" class but here we have to pass the "compare callback" object. The "compare callback" object describe the how comparision between two entities is performed.  In collection framework, this compare callback is express via java.util.Comparator<T> interface.
+
+The java.util.Comparator<T> has single abstract method called "int compareTo(T o1, T o2)" which returns 0 when o1 equals to o2, returns >0 (positive) when o1 > o2, returns <0 (Negative) if o1<o2.
+
+Example: Create "Product" collection and sort the collection by id, name, price etc. (code in main method). Assume that we've "Product" class.
+
+  ArrayList<Product> products = new ArrayList<>();
+  //add some products
+  products.add( new Product(10, "Rotomac Pen", "Pen", 7.4, true) );
+  products.add( new Product(1, "Natraj HB 6", "Pencil", 7, true) );
+  .....
+
+
+  //now implements Comparator<T> and pass the instance of Comparator<T> to the sort() method
+
+  // Anonymous class ( MEthod-1)
+  Comparator<Product> byId = new Comparator<Product>() {
+    public int compareTo(Product o1, Product o2) {
+      if(o1.getId() == o2.getId()) return 0;
+      if(o1.getId() > o2.getId()) return 1;
+      return -1;
+     }
+   };
+   //pass callback to sort
+   products.sort( byId );
+
+   //Lambda anonymous class (MEthod-2)
+   products.sort( (p,q) -> p.getId() - q.getId() );  // Same as previous Method-1
+   //print the collection
+   for(Product p : products) 
+        System.out.println(p);
+
+   //Sort by name
+   products.sort( (p,q) -> p.getName().compareTo(q.getName()) );
+   for(Product p : products)
+         System.out.println(p);
+    //Sort by price
+   products.sort( (p,q) -> {
+      if(p.getPrice() == q.getPrice()) return 0;
+      if(p.getPrice() > q.getPrice()) return 1;
+      return -1;
+    } );
+    for(Product p : products)
+        System.out.println(p);
+
+Example: Represent marks of five subjects of some students. (code in main)
+
+ArrayList<int []> marks = new ArrayList<>();
+marks.add( new int[] {10,20,3,4,34} );
+marks.add( new int[] {77,40,83,43,74} );
+/traverse
+for(int []ar : marks) {
+   System.out.println(ar[0] + " " + ar[1] + " " + ar[2] + " " + ar[3]);
+   //OR for(int n: ar) System.out.println(n);
+}
+
+Alternate code:
+
+ArrayList<ArrayList<Integer>> marks = new ArrayList<>();
+marks.add(new ArrayList<>()); // for 1st student
+marks.add(new ArrayList<>()); // for 2nd student
+marks.add(new ArrayList<>()); // for 3rd student
+//add marks of 1st student
+marks.get(0).add(55);
+marks.get(0).add(78);
+marks.get(0).add(76);
+marks.get(0).add(98);
+//add marks of 3rd student
+marks.get(2).add(76);
+marks.get(2).add(87);
+//traverse
+for(ArrayList<Integer> studentMarks : marks) {
+   for(int mark : studentMarks) {
+     System.out.print(" " + mark);
+   }
+   System.out.println(); // new line
+}
+
+Example: Define a "Student" class to represent name and marks of subjects and also create the student collection.
+
+public class Student {
+  private String name;
+  private ArrayList<Integer> marks;
+  
+  public Student(String name) {
+    this.name = name;
+  }
+  public Student(String name, ArrayList<Integer> marks) {
+     this.name = name;
+     this.marks = marks;
+  }
+  public String getName() { return name; }
+  public void setName(String name) { this.name = name; }
+  public  ArrayList<Integer> getMarks() { return marks; }
+  public void setMarks(ArrayList<Integer> marks) { this.marks = marks; }
+
+}
+
+public class StudentRepository {
+  private ArrayList<Student> students;
+  public StudentRepository() { 
+     students = new ArrayList<>();
+  }
+  public void add(String name, int...marks) {
+     Student std = new Student(name, new ArrayList<>());
+     for(int m: marks) {
+        std.getMarks().add( m );
+     }
+    students.add( std );
+  }
+ public void print() {
+    for(Student s : students) {
+       System.out.print(s.getName() + "  " );
+       int total = 0;
+       for(int m : s.getMarks()) {
+          System.out.print("   " + m);
+          total = total + m;
+       }
+       System.out.print("  " + total);
+       System.out.println();
+    }
+  }
+}//EndClass 
+
+public class App {
+  public static void main(String []args) {
+    StudentRepository rep = new StudentRepository();
+    rep.add("Reena",55,66,77);
+    rep.add("Meena",55,66,77,75,34);
+    rep.add("Seena");
+    rep.print();
+  }
+}
+
+Example: Add subject name along with marks of previous code/program. (We can use another class "Subject" or we can also use "enum" etc).
+
+Example: Design "Invoice" class which uses instances of "Customer(name,address)", "BillDetail (set of products)", and Product(name, qty, rate, unit) classes
+
+public class Product { }
+public class Customer { }
+public class Invoice {
+ private int billNo;
+ private Date billDate;
+ private Customer customer;
+ private ArrayList<Product> products;
+ .....
+}
+
+
+Example: Use java.util.Vector<T> class in place java.util.ArrayList<T> --- Actually, Vector<T> class is very old class and contains some depricated methods. So, we should have to use ArrayList<T> instead of Vector<T>.
+
+
+
+
+  
+
+ 
+
+
+
+    
+
+
+
+
+ 
+
+ 
+
+
+
+
+
+
+
+
+ 
+

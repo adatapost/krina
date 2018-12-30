@@ -1,0 +1,152 @@
+What is a "package"?
+=====================
+
+"The package is a mechanism to create a group of related TYPES and keep one group of TYPES distinct from other group of classes as well as it hide or show (access control) some of TYPES".
+
+For app developers, a package is mandatory and it has more than two level naming convention.
+
+Package name must be in lowercase and it address the file system folder.
+
+It is good practice to use your website domain name in "reverse order". 
+  For instance,
+   com.adatapost.project;
+   com.adatapost.project.ui;
+   com.adatapost.project.model;
+   com.adatapost.project.report;
+     
+ If you're going to develop attendance app then package names for your TYPEs should be:
+    in.yash.attendance;
+    in.yash.attendance.db;
+    in.yash.attendance.student;
+[Note: In some app platforms like Android, the package name itself an application name.]
+
+Do not use "java" and "javax" package name. These names are reserved for Java SE API.
+
+A type name along with package qualifier is known as "fully qualified Type" or "full name of class".  For instance,  java.util.Date, java.io.InputStream, javax.swing.JFrame etc.
+
+It is mandatory to use "fully qualified types" while coding however you may instruct the Java Compiler to qualified those types which are written as "short name -- class name only" if you use "import package.subpackage.ClassName or import package.subpackage.*" syntax at the top of .java file and just after a package statement.
+
+
+Example: To obtain the current (local) system date & time (java.util.Date class) (code in main)
+ java.util.Date now = new java.util.Date();
+ System.out.println( now ) ;
+
+
+Example: Create a package 
+
+package com.krina;
+
+public class App {
+  public static void main(String []args) {
+    // Different classes for Date & Time
+
+    java.util.Date dt1 = new java.util.Date();   // Returns an instance contains current datetime
+    java.util.Calendar cal = java.util.Calendar.getInstance();  // Current instance of datetime
+    java.time.LocalDateTime dt2 = java.time.LocalDateTime.now();
+  
+    System.out.println( dt1 );
+    System.out.println( cal );
+    System.out.println( dt2 );
+  }
+}
+
+Now, compile the class using following command and switches
+>javac  App.java  -d   .
+
+    -d will create package directories(folders) at . (dot) means in current/active directory.
+
+Or
+>javac App.java -d  c:\pqr   -- package folders and classes will be created at c:\pqr folder
+
+To run/launch the com.krina.App class,
+>java com.krina.App
+
+Example: Access the classes across the packages.
+
+1. Create com.krina.Emp class at c:\pqr folder
+
+package com.krina;
+
+class Emp {
+  public Emp() {
+    System.out.println("Emp");
+  }
+}
+
+>javac Emp.java -d . 
+
+2. Create in.yash.App at c:\abc folder which uses a class "com.krina.Emp".
+
+package in.yash;
+
+public class App {
+  public static  void main(String []args) {
+    com.krina.Emp emp = new com.krina.Emp();
+  }
+}
+Or
+
+package in.yash;
+
+import com.krina.Emp;
+
+public class App {
+  public static void main(String []args) {
+     Emp emp = new Emp();
+  }
+}
+
+>javac  -cp  .;c:\pqr  App.java  -d   .
+
+   -cp stands for CLASSPATH and  .; means look at current directory
+                                 c:\pqr;c:\hello;  <--- means also look at given paths.
+  
+[Compiler shows an error - com.krina.Emp is not visible because of its access - package level private so change it to public.]
+
+
+Start/launch the app,
+c:\abc>java -cp  .;c:\pqr in.yash.App
+
+Or
+
+c:\>java -cp c:\abc;c:\pqr in.yash.App
+
+
+Bundle your classes - Java's packaging tool - "jar tool" - Java Archive tool
+---------------------------------------------------------------------
+Jar tool create the "bundle" of packages & classes (also known as library) for different types of apps:
+   1. .jar files for libraries
+   2. .war files for web archive (Java EE Web)
+   3. .ear files for Enterprize Java Beans (EJB)
+   4. .apk files for Android apps
+Here we want to create a bundle or .jar file for com.krina package classes:
+
+c:\pqr>jar -cvf  mylib.jar  com  
+  
+         -c means create archive (backup)
+         -v verbose mode (show the process)
+         -f file name of archive e.g mylib.jar 
+  
+         com is the root package name of your lib and it contains sub-sub packages and TYPES.
+
+ Now, you may distribute "mylib.jar" to different people/projects/folders. Copy the "mylib.jar" to c:\abc folder and launch in.yash.App class from,
+
+   c:\abc>java -cp .;mylib.jar in.yash.App
+
+   c:\>java -cp c:\abc;mylib.jar in.yash.App
+
+OR
+
+   c:\>java -cp c:\abc;c:\pqr\mylib.jar in.yash.App
+
+
+
+  
+
+ 
+
+ 
+
+
+
+    
